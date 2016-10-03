@@ -1,6 +1,6 @@
 # genrandom - Generate Random Bytes
 
-![](https://github.com/espresso3389/genrandom-vscode/blob/master/images/intro.gif)
+![](https://raw.githubusercontent.com/espresso3389/genrandom-vscode/master/images/intro.gif)
 
 This is a Visual Studio Code extension, which generates random bytes and insert them on the current caret positions.
 It can generate random character sequence in four forms:
