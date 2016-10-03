@@ -15,19 +15,30 @@ function registerGenerator(context: vscode.ExtensionContext, name: string, rando
 
 function hex(buf: Buffer, sep: string): string {
     let hs = "0123456789ABCDEF";
-    var hex = "";
-    for (var i = 0; i < buf.length; i++) {
-        var b = buf[i];
+    let hex = "";
+    for (let i = 0; i < buf.length; i++) {
+        let b = buf[i];
         if (i > 0) hex += sep;
         hex += hs[b >> 4] + hs[b & 15];
     }
     return hex;
 }
 
+function woop(buf: Buffer, chars: string): string {
+    let str = "";
+    for (let i = 0; i < buf.length; i++) {
+        str += chars[buf[i] % chars.length];
+    }
+    return str;
+}
+
+let randomChars: string = '~!@#$%^&*()_-+=[]\\|;:\'",.<>/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
 export function activate(context: vscode.ExtensionContext) {
     registerGenerator(context, 'genrandom.generateRandomBytesBase64', () => crypto.pseudoRandomBytes(48).toString('base64'));
     registerGenerator(context, 'genrandom.generateRandomBytesHex', () => hex(crypto.pseudoRandomBytes(32), ''));
     registerGenerator(context, 'genrandom.generateRandomBytesCsvHex', () => hex(crypto.pseudoRandomBytes(32), ','));
+    registerGenerator(context, 'genrandom.generateRandomChars', () => woop(crypto.pseudoRandomBytes(32), randomChars));
 }
 
 export function deactivate() {
