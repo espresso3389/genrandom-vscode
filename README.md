@@ -21,6 +21,9 @@ It generates 32 byte random byte sequence hexed and comma-separated.
 - Random Characters
 It generates 32 random characters.
 This is useful for generating cryptographically strong passwords.
+```
+<iE/I+V@J>Oq0@Npzr\'fa:_d9-O&B[2
+```
 
 ![](https://github.com/espresso3389/genrandom-vscode/blob/master/images/intro.gif)
 
