@@ -2,7 +2,7 @@
     "name": "genrandom",
     "displayName": "genrandom",
     "description": "Generate Random Bytes",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "publisher": "espresso3389",
     "engines": {
         "vscode": "^1.5.0"
@@ -55,7 +55,28 @@
                 "command": "genrandom.generateRandomWithSelectedChars",
                 "title": "Generate Random Sequence using Selected Characters"
             }
-        ]
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "genrandom configuration",
+            "properties": {
+                "genrandom.randomChars": {
+                    "type": "string",
+                    "default": "~!@#$%^&*()_-+=[]\\|;:'\",.<>/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+                    "description": "Characters used to generate random character sequence."
+                },
+                "genrandom.randomLength": {
+                    "type": "integer",
+                    "default": 32,
+                    "description": "The number of characters to generate random sequence."
+                },
+                "genrandom.randomByteLengthBase64": {
+                    "type": "integer",
+                    "default": 48,
+                    "description": "The number of bytes to generate random byte sequence to be encoded by BASE64."
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",

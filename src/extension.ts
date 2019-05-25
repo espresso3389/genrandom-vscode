@@ -5,8 +5,8 @@ import * as vscode from 'vscode';
 import * as crypto from 'crypto';
 
 function registerGenerator(context: vscode.ExtensionContext, name: string, random: (sel: string) => string) {
-    let disposable = vscode.commands.registerCommand(name, () => {
-        let editor = vscode.window.activeTextEditor;
+    const disposable = vscode.commands.registerCommand(name, () => {
+        const editor = vscode.window.activeTextEditor;
         if (editor)
             editor.edit(edit => editor.selections.forEach(v => edit.replace(v, random(editor.document.getText(v)))));
     });
@@ -14,7 +14,7 @@ function registerGenerator(context: vscode.ExtensionContext, name: string, rando
 }
 
 function hex(buf: Buffer, sep: string): string {
-    let hs = "0123456789ABCDEF";
+    const hs = "0123456789ABCDEF";
     let hex = "";
     for (let i = 0; i < buf.length; i++) {
         let b = buf[i];
@@ -32,14 +32,35 @@ function woop(buf: Buffer, chars: string): string {
     return str;
 }
 
-let randomChars: string = '~!@#$%^&*()_-+=[]\\|;:\'",.<>/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+function getRandomChars() {
+    const randomChars = '~!@#$%^&*()_-+=[]\\|;:\'",.<>/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const config = vscode.workspace.getConfiguration();
+    const rand = config.get("genrandom.randomChars", '');
+    if (rand == null || rand.length == 0)
+        return randomChars;
+    return rand;
+}
+
+function getRandomBytesFor(name: string): Buffer {
+    const config = vscode.workspace.getConfiguration();
+    return crypto.pseudoRandomBytes(config.get('genrandom.' + name, 48));
+}
 
 export function activate(context: vscode.ExtensionContext) {
-    registerGenerator(context, 'genrandom.generateRandomBytesBase64', () => crypto.pseudoRandomBytes(48).toString('base64'));
-    registerGenerator(context, 'genrandom.generateRandomBytesHex', () => hex(crypto.pseudoRandomBytes(32), ''));
-    registerGenerator(context, 'genrandom.generateRandomBytesCsvHex', () => hex(crypto.pseudoRandomBytes(32), ','));
-    registerGenerator(context, 'genrandom.generateRandomChars', () => woop(crypto.pseudoRandomBytes(32), randomChars));
-    registerGenerator(context, 'genrandom.generateRandomWithSelectedChars', sel => woop(crypto.pseudoRandomBytes(32), sel));
+    registerGenerator(context, 'genrandom.generateRandomBytesBase64',
+        () => getRandomBytesFor('randomByteLengthBase64').toString('base64'));
+
+    registerGenerator(context, 'genrandom.generateRandomBytesHex',
+        () => hex(getRandomBytesFor('randomLength'), ''));
+
+    registerGenerator(context, 'genrandom.generateRandomBytesCsvHex',
+        () => hex(getRandomBytesFor('randomLength'), ','));
+
+    registerGenerator(context, 'genrandom.generateRandomChars',
+        () => woop(getRandomBytesFor('randomLength'), getRandomChars()));
+
+    registerGenerator(context, 'genrandom.generateRandomWithSelectedChars',
+        sel => woop(getRandomBytesFor('randomLength'), sel));
 }
 
 export function deactivate() {
