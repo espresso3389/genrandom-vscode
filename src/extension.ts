@@ -4,11 +4,11 @@
 import * as vscode from 'vscode';
 import * as crypto from 'crypto';
 
-function registerGenerator(context: vscode.ExtensionContext, name: string, random: () => string) {
+function registerGenerator(context: vscode.ExtensionContext, name: string, random: (sel: string) => string) {
     let disposable = vscode.commands.registerCommand(name, () => {
         let editor = vscode.window.activeTextEditor;
         if (editor)
-            editor.edit(edit => editor.selections.forEach(v => edit.replace(v, random())));
+            editor.edit(edit => editor.selections.forEach(v => edit.replace(v, random(editor.document.getText(v)))));
     });
     context.subscriptions.push(disposable);
 }
@@ -39,6 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
     registerGenerator(context, 'genrandom.generateRandomBytesHex', () => hex(crypto.pseudoRandomBytes(32), ''));
     registerGenerator(context, 'genrandom.generateRandomBytesCsvHex', () => hex(crypto.pseudoRandomBytes(32), ','));
     registerGenerator(context, 'genrandom.generateRandomChars', () => woop(crypto.pseudoRandomBytes(32), randomChars));
+    registerGenerator(context, 'genrandom.generateRandomWithSelectedChars', sel => woop(crypto.pseudoRandomBytes(32), sel));
 }
 
 export function deactivate() {

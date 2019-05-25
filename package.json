@@ -29,26 +29,33 @@
         "onCommand:genrandom.generateRandomBytesBase64",
         "onCommand:genrandom.generateRandomBytesHex",
         "onCommand:genrandom.generateRandomBytesCsvHex",
-        "onCommand:genrandom.generateRandomChars"
+        "onCommand:genrandom.generateRandomChars",
+        "onCommand:genrandom.generateRandomWithSelectedChars"
     ],
     "main": "./out/src/extension",
     "contributes": {
-        "commands": [{
-            "command": "genrandom.generateRandomBytesBase64",
-            "title": "Generate Random Bytes (BASE64)"
-        },
-        {
-            "command": "genrandom.generateRandomBytesHex",
-            "title": "Generate Random Bytes (HEX)"
-        },
-        {
-            "command": "genrandom.generateRandomBytesCsvHex",
-            "title": "Generate Random Bytes (HEX, Comma-Separated)"
-        },
-        {
-            "command": "genrandom.generateRandomChars",
-            "title": "Generate Random Characters"
-        }]
+        "commands": [
+            {
+                "command": "genrandom.generateRandomBytesBase64",
+                "title": "Generate Random Bytes (BASE64)"
+            },
+            {
+                "command": "genrandom.generateRandomBytesHex",
+                "title": "Generate Random Bytes (HEX)"
+            },
+            {
+                "command": "genrandom.generateRandomBytesCsvHex",
+                "title": "Generate Random Bytes (HEX, Comma-Separated)"
+            },
+            {
+                "command": "genrandom.generateRandomChars",
+                "title": "Generate Random Character Sequence"
+            },
+            {
+                "command": "genrandom.generateRandomWithSelectedChars",
+                "title": "Generate Random Sequence using Selected Characters"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
@@ -56,10 +63,10 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "devDependencies": {
-        "typescript": "^2.0.3",
-        "vscode": "^1.0.0",
-        "mocha": "^2.3.3",
-        "@types/node": "^6.0.40",
-        "@types/mocha": "^2.2.32"
+        "typescript": "^3.4.5",
+        "vscode": "^1.1.34",
+        "mocha": "^6.1.4",
+        "@types/node": "^12.0.2",
+        "@types/mocha": "^5.2.6"
     }
 }
