@@ -15,6 +15,14 @@ It generates 48 (by default) byte random byte sequence encoded in BASE64 (result
 6LGCGiYWnqngAl5KslABc3Ki4sRQ/2BHDULglM74j3V15JADG8ivG1T+YapuZGGG
 ```
 
+### BASE64URL
+
+It generates 48 (by default) byte random byte sequence encoded in BASE64URL (results in 64-characters).
+
+```
+OnpY/qT/Cj/10oV9nJS/ZUc8YkEvAgKVHnHd26G/Yfxw37QCQGd38gpqM/BEFMmk
+```
+
 ### Hexadecimally encoded (HEX) bytes
 
 It generates 32 (by default) byte random byte sequence in hexadecimal form.
