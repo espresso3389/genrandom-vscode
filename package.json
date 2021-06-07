@@ -2,7 +2,7 @@
     "name": "genrandom",
     "displayName": "genrandom",
     "description": "Generate Random Bytes",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "publisher": "espresso3389",
     "engines": {
         "vscode": "^1.53.0"
@@ -25,6 +25,11 @@
         "type": "git",
         "url": "https://github.com/espresso3389/genrandom-vscode.git"
     },
+    "capabilities": {
+        "untrustedWorkspaces": {
+            "supported": true
+        }
+    },
     "activationEvents": [
         "onCommand:genrandom.generateRandomBytesBase64",
         "onCommand:genrandom.generateRandomBytesBase64Url",
@@ -33,7 +38,7 @@
         "onCommand:genrandom.generateRandomChars",
         "onCommand:genrandom.generateRandomWithSelectedChars"
     ],
-    "main": "./out/src/extension",
+    "main": "./out/extension.js",
     "contributes": {
         "commands": [
             {
