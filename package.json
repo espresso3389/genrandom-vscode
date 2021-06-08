@@ -2,7 +2,7 @@
     "name": "genrandom",
     "displayName": "genrandom",
     "description": "Generate Random Bytes",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "publisher": "espresso3389",
     "engines": {
         "vscode": "^1.53.0"

@@ -27,7 +27,10 @@ function hex(buf: Buffer, sep: string): string {
     return hex;
 }
 
+const randomChars = '~!@#$%^&*()_-+=[]\\|;:\'",.<>/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
 function woop(buf: Buffer, chars: string): string {
+    chars ??= randomChars;
     let str = "";
     for (let i = 0; i < buf.length; i++) {
         str += chars[buf[i] % chars.length];
@@ -36,7 +39,6 @@ function woop(buf: Buffer, chars: string): string {
 }
 
 function getRandomChars() {
-    const randomChars = '~!@#$%^&*()_-+=[]\\|;:\'",.<>/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     const config = vscode.workspace.getConfiguration();
     const rand = config.get("genrandom.randomChars", '');
     if (rand === null || rand.length === 0) {
